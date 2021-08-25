@@ -1,0 +1,44 @@
+{
+  "variables": {
+    "client_id": "",
+    "client_secret": "",
+    "subscription_id": "",
+    "tenant_id": "",
+    "az_pat": "",
+    "ssh_user": "",
+    "ssh_pass": "",
+    "resourceGroupName": "",
+    "new_image_name": "", 
+    "resourceGroupLocation": "",
+    "init_script": ""
+  },
+  "builders": [{
+    "type": "azure-arm",
+    "client_id": "{{user `client_id`}}",
+    "client_secret": "{{user `client_secret`}}",
+    "subscription_id": "{{user `subscription_id`}}",
+    "tenant_id": "{{user `tenant_id`}}",
+    "managed_image_resource_group_name": "{{user `resourceGroupName`}}",
+    "managed_image_name": "{{user `new_image_name`}}{{timestamp}}",
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "os_type": "Linux",
+    "image_publisher": "RedHat",
+    "image_offer": "RHEL",
+    "image_sku": "8",
+    "image_version": "latest",
+    "ssh_pty": "true",
+    "location": "{{user `resourceGroupLocation`}}",
+    "vm_size": "Standard_DS2_v2"
+  }],
+  "provisioners": [{
+    "execute_command": "echo {{user `az_pat`}} | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+    "environment_vars": ["AZ_CLNT={{user `client_id`}}",
+                         "AZ_PSS={{user `client_secret`}}",
+                         "AZ_TNT={{user `tenant_id`}}",
+                         "USR_NM={{user `ssh_user`}}",
+                         "AZ_PT={{user `az_pat`}}"],
+    "script": "{{user `init_script`}}",
+    "type": "shell"
+  }]
+}

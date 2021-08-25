@@ -1,0 +1,16 @@
+﻿inputVarName,source,type,identifier,sourceField,secret
+NA,NA,subnetsWithScaleSet,NA,NA,NA
+subscriptionId,generatedAzureKeys.yaml,NA,name,subscriptionId,yes
+tenantId,generatedAzureKeys.yaml,NA,name,tenantId,yes
+clientId,generatedAzureKeys.yaml,NA,name,clientId,yes
+clientSecret,generatedAzureKeys.yaml,NA,name,clientSecret,yes
+resourceGroupName,infrastructureConfig.yaml,networkFoundation,NA,resourceGroupName,no
+resourceGroupLocation,infrastructureConfig.yaml,networkFoundation,instance,resourceGroupLocation,no
+vnetName,foundationOutput,NA,NA,vnetName,no
+cidrSubnet,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,cidrSubnet,no
+imageName,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,imageName,no
+adminUser,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,adminUser,yes
+adminPwd,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,adminPwd,yes
+vaultName,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,vaultName,no
+cloudInit,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,cloudInit,no
+storageAccountDiagName,foundationOutput,NA,NA,storageAccountDiagName,no

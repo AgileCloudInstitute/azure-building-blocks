@@ -1,0 +1,58 @@
+---
+#Copyright 2021 Green River IT (GreenRiverIT.com) as described in LICENSE.txt distributed with this project on GitHub.
+#Start at https://github.com/AgileCloudInstitute?tab=repositories
+# Defines a release definition
+name: Agile Cloud Manager Demo Release
+description: A Release Definition for creating infrastructure with the Agile Cloud Manager
+variables:
+  - keySource: keyVault
+    configFileDev: demoConfigDev.yaml
+    configFileTest: demoConfigTest.yaml
+    storageAccountNameTerraformBackend: placeholder
+environments:
+  - name: Dev Environ Create
+    deployPhases:
+      - name: Create Dev Environment
+        deploymentInput: 
+        - artifactsDownloadInput:
+          - alias: _ACM_ExampleCode
+        workflowTasks: 
+        - name: Setup On
+          type: Python
+          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
+          arguments: "setup on $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+        - name: Admin On
+          type: Python
+          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
+          arguments: "admin on $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+        - name: Foundation On
+          type: Python
+          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
+          arguments: "foundation on $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+        - name: System On
+          type: Python
+          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
+          arguments: "system on $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+  - name: Dev Environ Destroy
+    deployPhases:
+      - name: Destroy Dev Environment 
+        deploymentInput: 
+        - artifactsDownloadInput:
+          - alias: _ACM_ExampleCode
+        workflowTasks: 
+        - name: System Off
+          type: Python
+          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
+          arguments: "system off $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+        - name: Foundation Off
+          type: Python
+          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
+          arguments: "foundation off $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+        - name: Admin Off
+          type: Python
+          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
+          arguments: "admin off $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+        - name: Setup Off
+          type: Python
+          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
+          arguments: "setup off $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"

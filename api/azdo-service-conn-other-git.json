@@ -1,0 +1,24 @@
+{
+  "data": {},
+  "name": "serviceEndPointName",
+  "type": "git",
+  "url": "sourceRepoAddress",
+  "authorization": {
+    "parameters": {
+      "username": "ghUsername",
+      "password": "gitPass"
+    },
+    "scheme": "UsernamePassword"
+  },
+  "isShared": false,
+  "isReady": true,
+  "serviceEndpointProjectReferences": [
+    {
+      "projectReference": {
+        "id": "pid",
+        "name": "projName"
+      },
+      "name": "serviceEndPointName"
+    }
+  ]
+}

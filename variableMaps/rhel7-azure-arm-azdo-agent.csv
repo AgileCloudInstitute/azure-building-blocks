@@ -1,0 +1,15 @@
+﻿inputVarName,source,type,identifier,sourceField,secret
+NA,NA,imageBuilds/images,NA,NA,NA
+client_id,generatedAzureKeys.yaml,NA,name,clientId,yes
+client_secret,generatedAzureKeys.yaml,NA,name,clientSecret,yes
+subscription_id,foundationOutput,NA,NA,subscription_id,no
+tenant_id,foundationOutput,NA,NA,tenant_id,no
+az_pat,generatedAzureKeys.yaml,NA,NA,azdoOrgPAT,yes
+az_server,generatedAzureKeys.yaml,NA,NA,azdoOrgServiceURL,yes
+ssh_user,infrastructureConfig.yaml,imageBuilds/images,NA,ssh_user,yes
+ssh_pass,infrastructureConfig.yaml,imageBuilds/images,NA,ssh_pass,yes
+resource_group,foundationOutput,NA,NA,pipes_resource_group_name,no
+src_image_name,infrastructureConfig.yaml,imageBuilds/images,NA,src_image_name,no
+new_image_name,infrastructureConfig.yaml,imageBuilds/images,NA,instanceName,no
+region,infrastructureConfig.yaml,networkFoundation,instance,region,no
+init_script,infrastructureConfig.yaml,imageBuilds/images,NA,init_script,no

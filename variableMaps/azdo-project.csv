@@ -1,0 +1,11 @@
+﻿inputVarName,source,type,identifier,sourceField,secret
+NA,NA,projects,NA,NA,NA
+subscriptionName,generatedAzureKeys.yaml,NA,name,subscriptionName,yes
+subscriptionId,generatedAzureKeys.yaml,NA,name,subscriptionId,yes
+tenantId,generatedAzureKeys.yaml,NA,name,tenantId,yes
+clientName,generatedAzureKeys.yaml,NA,name,clientName,yes
+clientId,generatedAzureKeys.yaml,NA,name,clientId,yes
+clientSecret,generatedAzureKeys.yaml,NA,name,clientSecret,yes
+azdoOrgPAT,generatedAzureKeys.yaml,NA,name,azdoOrgPAT,yes
+azdoOrgServiceURL,generatedAzureKeys.yaml,NA,name,azdoOrgServiceURL,yes
+projectName,infrastructureConfig.yaml,projectManagement/projects,instance,instanceName,no

@@ -1,0 +1,9 @@
+﻿inputVarName,source,type,identifier,sourceField,secret
+NA,NA,subnetForBuilds,NA,NA,NA
+subscriptionId,foundationOutput,NA,NA,subscription_id,no
+tenantId,foundationOutput,NA,NA,tenant_id,no
+clientId,generatedAzureKeys.yaml,NA,name,clientId,yes
+clientSecret,generatedAzureKeys.yaml,NA,name,clientSecret,yes
+resourceGroupName,foundationOutput,NA,NA,pipes_resource_group_name,no
+vnetName,foundationOutput,NA,NA,vnetName,no
+cidrSubnet,infrastructureConfig.yaml,imageBuilds/subnetForBuilds,instance,cidrSubnet,no
