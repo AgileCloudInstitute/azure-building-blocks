@@ -1,5 +1,5 @@
-module "foundation-admin" {
-  source = "..\\..\\..\\modules\\foundation-admin"
+module "foundationAdmin" {
+  source = "..\\..\\..\\modules\\foundationAdmin"
 
   subscriptionId       = var.subscriptionId
   tenantId             = var.tenantId

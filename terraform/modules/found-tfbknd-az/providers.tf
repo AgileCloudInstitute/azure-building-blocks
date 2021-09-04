@@ -1,6 +1,17 @@
 #Copyright 2021 Green River IT (GreenRiverIT.com) as described in LICENSE.txt distributed with this project on GitHub.
 #Start at https://github.com/AgileCloudInstitute?tab=repositories
 
+#Configure terraform
+terraform {
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=2.73.0"
+    }
+  }
+}
+
 provider "azurerm" {
     subscription_id = var.subscriptionId
     client_id       = var.clientId

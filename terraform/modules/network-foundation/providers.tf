@@ -16,6 +16,4 @@ provider "azurerm" {
     }
 }
 
-# Not required: currently used in conjuction with using icanhazip.com to determine local workstation external IP
-provider "http" {}
 

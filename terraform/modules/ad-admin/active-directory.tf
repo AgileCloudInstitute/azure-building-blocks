@@ -19,6 +19,19 @@ output "appId" { value = azuread_service_principal.appRegistrationSP.application
 ###############################################################################################
 ### Providers 
 ###############################################################################################
+
+#Configure terraform
+terraform {
+
+  required_providers {
+    azuread = {
+#      source  = "hashicorp/azuread"
+#      version = "2.0.1"
+      source  = "hashicorp/azuread"
+      version = "0.11.0"    
+    }
+  }
+}
   
 # Configure the Microsoft Azure Active Directory Provider
 provider "azuread" {
@@ -48,25 +61,34 @@ provider "azurerm" {
 ### Identity Resources
 ################################################################################################
 
+
 # Create an application
 resource "azuread_application" "appRegistration" {
+  #replacing display_name with name for earlier version.
   name = var.instanceName
+  app_role {
+    allowed_member_types  = ["User", "Application"]
+    description           = "Admins can manage roles and perform all task actions"
+    display_name          = "Admin"
+    value                 = "administer"
+    #Remove the following line for older version of provider
+#    id                    = "1b19509b-32b1-4e9f-b71d-4992aa991967"
+  }
 }
+
+data "azuread_client_config" "test" {}
 
 # Create a service principal
 resource "azuread_service_principal" "appRegistrationSP" {
   application_id = azuread_application.appRegistration.application_id
+#>>  owners = [data.azuread_client_config.test.object_id]
 }
 
-resource "random_password" "appRegistrationSP_pwd" {
-  length  = 16
-  special = true
-}
 
 resource "azuread_service_principal_password" "appRegistrationSP_pwd" {
   service_principal_id = azuread_service_principal.appRegistrationSP.id
-  value                = random_password.appRegistrationSP_pwd.result
-  #The following line will persist the password value for 20 days = 480h.  You can set this for much shorter and you can make this duration a variable to improve security.
+  #Next two lines disappear for v1.6.0 and lower
+  value = "just-for-test"
   end_date_relative = "480h"
 }
 
@@ -89,13 +111,13 @@ resource "azurerm_role_assignment" "appRegistrationSP_role_assignment_vault" {
   depends_on = [ azuread_service_principal_password.appRegistrationSP_pwd ]
 }
 
-resource "azuread_application_app_role" "example-role" {
-  application_object_id = azuread_application.appRegistration.id
-  allowed_member_types  = ["User", "Application"]
-  description           = "Admins can manage roles and perform all task actions"
-  display_name          = "Admin"
-  value                 = "administer"
-}
+#>>resource "azuread_application_app_role" "example-role" {
+#>>  application_object_id = azuread_application.appRegistration.id
+#>>  allowed_member_types  = ["User", "Application"]
+#>>  description           = "Admins can manage roles and perform all task actions"
+#>>  display_name          = "Admin"
+#>>  value                 = "administer"
+#>>}
 
 ################################################################################################
 ### Key Vault Resources
