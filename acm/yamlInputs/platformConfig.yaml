@@ -1,0 +1,13 @@
+systems:
+  - instanceName: tfbackend
+    infraConfigFile: systemConfig-tfbackend.yaml
+    keysDir: C:\path\to\shared\keys
+  - instanceName: admin
+    infraConfigFile: systemConfig-admin.yaml
+    keysDir: $LOCALAPPDATA\acm-vars\output\adminAccounts
+  - instanceName: agents
+    infraConfigFile: systemConfig-agents.yaml
+    keysDir: $LOCALAPPDATA\acm-vars\output\pipelineAgents
+  - instanceName: projectmgt
+    infraConfigFile: systemConfig-projectmgt.yaml
+    keysDir: $LOCALAPPDATA\acm-vars\output\projectManagement

@@ -13,9 +13,6 @@ environments:
   - name: Dev Environ Create
     deployPhases:
       - name: Create Dev Environment
-        deploymentInput: 
-        - artifactsDownloadInput:
-          - alias: _ACM_ExampleCode
         workflowTasks: 
         - name: Setup On
           type: Python
@@ -36,9 +33,6 @@ environments:
   - name: Dev Environ Destroy
     deployPhases:
       - name: Destroy Dev Environment 
-        deploymentInput: 
-        - artifactsDownloadInput:
-          - alias: _ACM_ExampleCode
         workflowTasks: 
         - name: System Off
           type: Python

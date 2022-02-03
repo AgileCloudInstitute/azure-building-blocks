@@ -1,8 +1,0 @@
-﻿inputVarName,source,type,identifier,sourceField,secret
-NA,NA,networkFoundation,NA,NA,NA
-subscriptionId,adUserKeys.yaml,NA,name,subscriptionId,yes
-tenantId,adUserKeys.yaml,NA,name,tenantId,yes
-clientId,adUserKeys.yaml,NA,name,clientId,yes
-clientSecret,adUserKeys.yaml,NA,name,clientSecret,yes
-resourceGroupRegion,infrastructureConfig.yaml,networkFoundation,instance,resourceGroupRegion,no
-resourceGroupName,infrastructureConfig.yaml,networkFoundation,instance,resourceGroupName,no

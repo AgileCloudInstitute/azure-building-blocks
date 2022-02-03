@@ -21,3 +21,25 @@ resource "azuredevops_serviceendpoint_azurerm" "endpointazure" {
   azurerm_subscription_id   = var.subscriptionId  
   azurerm_subscription_name = var.subscriptionName  
 }  
+
+resource "azuredevops_git_repository" "repository" {
+  project_id = azuredevops_project.project.id
+  name = var.repoName
+  initialization {
+    init_type = "Uninitialized"
+  }
+}
+
+resource "azuredevops_build_definition" "build" {
+  project_id = azuredevops_project.project.id
+  name = var.buildName
+  ci_trigger {
+    use_yaml = true
+  }
+
+  repository {
+    repo_type = "TfsGit"
+    repo_id   = azuredevops_git_repository.repository.id
+    yml_path  = "azure-pipelines.yml"
+  }
+}

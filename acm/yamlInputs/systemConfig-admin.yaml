@@ -1,0 +1,29 @@
+## Copyright 2022 Green River IT (GreenRiverIT.com) as described in LICENSE.txt distributed with this project on GitHub.  
+## Start at https://github.com/AgileCloudInstitute?tab=repositories    
+
+cloud: azure
+organization: myOrg
+name: admin
+tags:
+  networkName: name-of-vnet
+  systemName: name-of-system
+  environmentName: name-of-environment
+  ownerName: name-of-owner
+networkFoundation:
+  instanceName: admin
+  templateName: azure-building-blocks/terraform/foundationAdmin
+  tool: terraform
+  resourceGroupName: admin
+  resourceGroupRegion: westus
+  tfBackendStorageContainerName: networkfoundation
+  tfBackendStateFileName: adminaccounts.networkfoundation.tfstate
+systems:
+  admin:
+    - instanceName: pipelineAgents
+      templateName: azure-building-blocks/terraform/ad-admin
+      tool: terraform
+      tfBackendStateFileName: adminaccounts.pipelineagents.tfstate
+    - instanceName: projectManagement
+      templateName: azure-building-blocks/terraform/ad-admin
+      tool: terraform
+      tfBackendStateFileName: adminaccounts.projectmanagement.tfstate

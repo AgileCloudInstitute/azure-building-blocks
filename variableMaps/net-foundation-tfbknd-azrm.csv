@@ -1,7 +1,0 @@
-﻿inputVarName,source,type,identifier,sourceField,secret
-NA,NA,networkFoundation,NA,NA,NA
-subscriptionId,generatedAzureKeys.yaml,NA,name,subscriptionId,yes
-tenantId,generatedAzureKeys.yaml,NA,name,tenantId,yes
-clientId,generatedAzureKeys.yaml,NA,name,clientId,yes
-clientSecret,generatedAzureKeys.yaml,NA,name,clientSecret,yes
-pipeAzureRegion,infrastructureConfig.yaml,networkFoundation,instance,region,no

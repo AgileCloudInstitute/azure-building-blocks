@@ -13,6 +13,9 @@ module "azdo-project" {
   azdoOrgPAT                           = var.azdoOrgPAT
   azdoOrgServiceURL                    = var.azdoOrgServiceURL
   projectName                          = var.projectName
+  repoName                             = var.repoName
+  buildName                            = var.buildName
+
 }
 
 variable "subscriptionName" { }  
@@ -26,5 +29,16 @@ variable "azdoOrgPAT" { }
 variable "azdoOrgServiceURL" { }  
 variable "projectName" { } 
 
+variable "repoName" { }  
+variable "buildName" { }
+
+
 output "azuredevops_service_connection_id" { value = module.azdo-project.azuredevops_service_connection_id }
 output "azuredevops_project_id" { value = module.azdo-project.azuredevops_project_id }
+output "azuredevops_build_definition_id" { value = module.azdo-project.azuredevops_build_definition_id }
+output "azuredevops_git_repository_name" { value = module.azdo-project.azuredevops_git_repository_name }
+
+
+terraform {
+  backend "azurerm" { }
+}

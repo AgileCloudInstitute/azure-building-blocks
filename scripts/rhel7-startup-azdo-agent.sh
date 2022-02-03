@@ -74,7 +74,9 @@ dnf update -y --disablerepo='*' --enablerepo='*microsoft*'
 
 echo "--------------------------------------------------"
 echo "About to dnf update"
-dnf update -y
+#Replacing the following line and replacing the following line with the line after it because the following line was breaking the build.  Later, make a work item to avoid the need for adding --skip-broken --allowerasing --nobest 
+#dnf update -y
+dnf update -y --skip-broken --allowerasing --nobest
 echo "Done with dnf update. "
 echo "--------------------------------------------------"
 dnf install -y git 
@@ -188,7 +190,7 @@ echo "All done with cloud-init.  "
 
 echo "--------------------------------------------------"
 echo "About to dnf update"
-dnf update -y
+dnf update -y --skip-broken --allowerasing --nobest 
 echo "Done with dnf update. "
 echo "--------------------------------------------------"
 echo "About to echo $USR_NM : "

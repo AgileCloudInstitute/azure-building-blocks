@@ -17,6 +17,8 @@ module "snet-agents" {
   imageName                          = var.imageName
   cloudInit                          = var.cloudInit
   vaultName                          = var.vaultName
+  gitUser                            = var.gitUser
+  gitPwd                             = var.gitPwd
 
 }
 
@@ -41,3 +43,7 @@ variable "gitPwd" { }
 
 output "image_id" { value = module.snet-agents.image_id }  
 output "vaultName" { value = module.snet-agents.vaultName }  
+
+terraform {
+  backend "azurerm" { }
+}

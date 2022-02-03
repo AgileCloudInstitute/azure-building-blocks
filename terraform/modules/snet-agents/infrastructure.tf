@@ -2,7 +2,7 @@
 #Start at https://github.com/AgileCloudInstitute?tab=repositories
 
 resource "azurerm_subnet" "pipelines" {
-  name                 = "imageBuilderSubnet"
+  name                 = "agentsSubnet"
   resource_group_name  = data.azurerm_resource_group.pipeline-resources.name
   virtual_network_name = data.azurerm_virtual_network.vnetTarget.name
   address_prefixes     = [var.cidrSubnet]
@@ -11,7 +11,7 @@ resource "azurerm_subnet" "pipelines" {
 
 ## Create Network Security Group and rule
 resource "azurerm_network_security_group" "myterraformnsg" {
-    name                = "imageBuilderSecurityGroup"
+    name                = "agentsSecurityGroup"
     location            = data.azurerm_resource_group.pipeline-resources.location
     resource_group_name = data.azurerm_resource_group.pipeline-resources.name
     

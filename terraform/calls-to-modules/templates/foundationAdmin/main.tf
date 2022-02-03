@@ -16,3 +16,7 @@ variable "clientId" { }
 variable "clientSecret" { }
 variable "resourceGroupName" { }
 variable "resourceGroupRegion" { }
+
+terraform {
+  backend "azurerm" { }
+}

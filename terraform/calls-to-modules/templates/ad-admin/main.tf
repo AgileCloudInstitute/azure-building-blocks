@@ -25,3 +25,8 @@ variable "resourceGroupRegion" { }
 
 output "application_id" { value = module.ad-admin.application_id }
 output "appId" { value = module.ad-admin.appId }
+
+terraform {
+  backend "azurerm" { }
+}
+

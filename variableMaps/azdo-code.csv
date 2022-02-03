@@ -1,7 +1,0 @@
-﻿inputVarName,source,type,identifier,sourceField,secret
-NA,NA,code,NA,NA,NA
-azdoOrgPAT,generatedAzureKeys.yaml,NA,name,azdoOrgPAT,yes
-azdoOrgServiceURL,generatedAzureKeys.yaml,NA,name,azdoOrgServiceURL,yes
-repoName,infrastructureConfig.yaml,projectManagement/projects/code,instance,instanceName,no
-buildName,infrastructureConfig.yaml,projectManagement/projects/code,instance,buildName,no
-projectName,infrastructureConfig.yaml,projectManagement/projects/parent,instance,instanceName,no

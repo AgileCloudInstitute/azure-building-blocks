@@ -17,3 +17,12 @@ data "azurerm_client_config" "current" {}
 
 output "azuredevops_service_connection_id" { value = azuredevops_serviceendpoint_azurerm.endpointazure.id }
 output "azuredevops_project_id" { value = azuredevops_project.project.id }
+
+
+ 
+variable "repoName" { }  
+variable "buildName" { }
+
+
+output "azuredevops_build_definition_id" { value = azuredevops_build_definition.build.id }
+output "azuredevops_git_repository_name" { value = azuredevops_git_repository.repository.name }
