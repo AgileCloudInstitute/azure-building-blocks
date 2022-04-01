@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sourceImageVhdUri": {
+            "type": "String",
+            "defaultValue": "https://uclov47qp6n34blxvxcg0va4.blob.core.windows.net/vhds/313258dc-12cd-4270-9457-57402e5acf76.vhd",
+            "metadata": {
+              "description": "The source of the generalized blob containing the custom image"
+             }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {  
+            "type":"Microsoft.Compute/images",
+            "apiVersion": "2019-03-01",
+            "name":"initialimagem20220306140736414002",
+            "location":"[resourceGroup().location]",
+            "properties":{  
+                "hyperVGeneration": "V1",
+                "storageProfile":{  
+                    "osDisk":{  
+                        "osType":"Linux",
+                        "osState":"Generalized",
+                        "blobUri":"[parameters('sourceImageVhdUri')]",
+                        "storageAccountType":"Standard_LRS"
+                    }
+                }
+            }
+        },
+        {  
+            "type":"Microsoft.Compute/VirtualMachine",
+            ...What else?
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+﻿inputVarName,source,type,identifier,sourceField,secret
+NA,NA,subnetsWithScaleSet,NA,NA,NA
+resourceGroupRegion,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,resourceGroupRegion,no
+vNetName,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,vNetName,no
+backupRegion,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,backupRegion,no
+vNetIpAddressRange,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,vNetIpAddressRange,no
+cidrSubnet,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,cidrSubnet,no
+subnetName,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,subnetName,no

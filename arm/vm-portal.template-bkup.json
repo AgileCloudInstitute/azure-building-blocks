@@ -1,0 +1,75 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "VmName": {
+            "defaultValue": "KokoTaylor",
+            "type": "String"
+        },
+        "ImageId": {
+            "defaultValue": "/subscriptions/a7a2a563-b184-4577-b1c1-b959c93b7d47/resourceGroups/myResourceGroupDev/providers/Microsoft.Compute/images/initialimagem20220328124642641082",
+            "type": "String"
+        },
+        "NicId": {
+            "defaultValue": "/subscriptions/a7a2a563-b184-4577-b1c1-b959c93b7d47/resourceGroups/myResourceGroupDev/providers/Microsoft.Network/networkInterfaces/myVM20220328124642641082VMNic",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2021-11-01",
+            "name": "[parameters('VmName')]",
+            "location": "westus",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS1_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "id": "[parameters('ImageId')]"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat(parameters('VmName'), '_disk1_')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "deleteOption": "Detach",
+                        "diskSizeGB": 30
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('VmName')]",
+                    "adminUsername": "jones",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "/home/jones/.ssh/authorized_keys",
+                                    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqlaN9dCNzFAcakfXYlrT+TfFWWEdWTfiKFn7KuSRWW7abc8gmTJIuLMhpx+GLzSqU0l3zZ8BTsYQaHOUpwUr9iTw5eBFnuUiNFL2XzVmMhu7NmNVSQ2Mg6Ds5ad+Xfg8wv7iRGpS4VMciTx0j7Gz30SmBZ5VvYzNsyCwR/HWgCOu1yxx44MBb1W66M1fRFFOyJfUAwX7EeGD+/EMLtMt5OZDAMK3GhDygAlpu6RLq+8yRd2/YzncbS49zNBJqflJQ+YQhdYUdZ1WSn5MfJBk5nxMNulvoCXtR22lBNdCPW+plD0i3VRS1NXP2Lk7GcdpXs/4CtmuxXNw2IZApfJXD"
+                                }
+                            ]
+                        },
+                        "provisionVMAgent": true,
+                        "patchSettings": {
+                            "patchMode": "ImageDefault",
+                            "assessmentMode": "ImageDefault"
+                        }
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('NicId')]"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

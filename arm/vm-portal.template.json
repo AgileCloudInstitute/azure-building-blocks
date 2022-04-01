@@ -1,0 +1,153 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "dnsLabelPrefix": {
+        "type": "string",
+        "metadata": { "description": "DNS Label for the Public IP. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error." }
+      },
+      "vnetCidr": {
+        "type": "string",
+        "metadata": { "description": "Address Prefix" }
+      },
+      "subnetCidr": {
+        "type": "string",
+        "metadata": { "description": "Subnet prefix" }
+      },
+      "publicIPAddressType": {
+        "type": "string",
+        "allowedValues": [ "Dynamic", "Static" ],
+        "metadata": { "description": "Type of public IP address" }
+      },
+      "resourceGroupRegion": {
+        "type": "string",
+        "metadata": { "description": "Location for all resources." }
+      },
+      "VmName": {
+        "type": "String"
+      },
+      "subnetName": {
+        "type": "String"
+      },
+      "imageName": {
+        "type": "String"
+      },
+      "NicName": {
+        "type": "String"
+      },
+      "vnetName": {
+        "defaultValue": "virtualNetwork1",
+        "type": "String"
+      },
+      "foundationResourceGroupName": {
+        "type": "String"
+      }
+    },
+    "variables": {
+      "publicIPAddressName": "publicIp1",
+      "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+    },
+    "resources": [
+      {
+        "apiVersion": "2020-05-01",
+        "type": "Microsoft.Network/publicIPAddresses",
+        "name": "[variables('publicIPAddressName')]",
+        "location": "[parameters('resourceGroupRegion')]",
+        "properties": {
+          "publicIPAllocationMethod": "[parameters('publicIPAddressType')]",
+          "dnsSettings": { "domainNameLabel": "[parameters('dnsLabelPrefix')]" }
+        }
+      },
+      {
+        "apiVersion": "2020-05-01",
+        "type": "Microsoft.Network/virtualNetworks",
+        "name": "[parameters('vnetName')]",
+        "location": "[parameters('resourceGroupRegion')]",
+        "properties": {
+          "addressSpace": {
+            "addressPrefixes": [ "[parameters('vnetCidr')]" ]
+          },
+          "subnets": [
+            {
+              "name": "[parameters('subnetName')]",
+              "properties": { "addressPrefix": "[parameters('subnetCidr')]" }
+            }
+          ]
+        }
+      },
+      {
+        "apiVersion": "2020-05-01",
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[parameters('NicName')]",
+        "location": "[parameters('resourceGroupRegion')]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]",
+          "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]"
+        ],
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "ipconfig1",
+              "properties": {
+                "publicIPAddress": {
+                  "id": "[resourceId ('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]"
+                },
+                "privateIPAllocationMethod": "Dynamic",
+                "subnet": { "id": "[variables('subnetRef')]" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "Microsoft.Compute/virtualMachines",
+        "apiVersion": "2021-11-01",
+        "name": "[parameters('VmName')]",
+        "location": "[parameters('resourceGroupRegion')]",
+        "properties": {
+            "hardwareProfile": { "vmSize": "Standard_DS1_v2" },
+            "storageProfile": {
+                "imageReference": { 
+                  "id": "[resourceId(parameters('foundationResourceGroupName'), 'Microsoft.Compute/images/', parameters('imageName'))]"
+                },
+                "osDisk": {
+                    "osType": "Linux",
+                    "name": "[concat(parameters('VmName'), '_disk1_')]",
+                    "createOption": "FromImage",
+                    "caching": "ReadWrite",
+                    "deleteOption": "Detach",
+                    "diskSizeGB": 30
+                },
+                "dataDisks": []
+            },
+            "osProfile": {
+                "computerName": "[parameters('VmName')]",
+                "adminUsername": "jones",
+                "linuxConfiguration": {
+                    "disablePasswordAuthentication": true,
+                    "ssh": {
+                        "publicKeys": [
+                            {
+                                "path": "/home/jones/.ssh/authorized_keys",
+                                "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqlaN9dCNzFAcakfXYlrT+TfFWWEdWTfiKFn7KuSRWW7abc8gmTJIuLMhpx+GLzSqU0l3zZ8BTsYQaHOUpwUr9iTw5eBFnuUiNFL2XzVmMhu7NmNVSQ2Mg6Ds5ad+Xfg8wv7iRGpS4VMciTx0j7Gz30SmBZ5VvYzNsyCwR/HWgCOu1yxx44MBb1W66M1fRFFOyJfUAwX7EeGD+/EMLtMt5OZDAMK3GhDygAlpu6RLq+8yRd2/YzncbS49zNBJqflJQ+YQhdYUdZ1WSn5MfJBk5nxMNulvoCXtR22lBNdCPW+plD0i3VRS1NXP2Lk7GcdpXs/4CtmuxXNw2IZApfJXD"
+                            }
+                        ]
+                    },
+                    "provisionVMAgent": true,
+                    "patchSettings": {
+                        "patchMode": "ImageDefault",
+                        "assessmentMode": "ImageDefault"
+                    }
+                },
+                "secrets": [],
+                "allowExtensionOperations": true
+            },
+            "networkProfile": {
+                "networkInterfaces": [
+                    { "id": "[resourceId ('Microsoft.Network/networkInterfaces', parameters('NicName'))]" }
+                ]
+            }
+      }
+    }
+    ]
+  }
