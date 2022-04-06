@@ -31,20 +31,20 @@ resource "azurerm_key_vault_access_policy" "userCreatedSP" {
   key_vault_id = azurerm_key_vault.infraPipes.id
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = var.clientId
-  certificate_permissions = [ "create", "delete", "deleteissuers", "get", "getissuers", "import", "list", "listissuers", "managecontacts", "manageissuers", "setissuers", "update", ]
-  key_permissions = [ "backup", "create", "decrypt", "delete", "encrypt", "get", "import", "list", "purge", "recover", "restore", "sign", "unwrapKey", "update", "verify", "wrapKey", ]
-  secret_permissions = [ "backup", "delete", "get", "list", "purge", "recover", "restore", "set", ]
-  storage_permissions = [ "get", ]
+  certificate_permissions = [ "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "SetIssuers", "Update", ]
+  key_permissions = [ "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", ]
+  secret_permissions = [ "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set", ]
+  storage_permissions = [ "Get", ]
 }
 
 resource "azurerm_key_vault_access_policy" "userCreatedSP2" {
   key_vault_id = azurerm_key_vault.infraPipes.id
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = data.azurerm_client_config.current.object_id
-  certificate_permissions = [ "create", "delete", "deleteissuers", "get", "getissuers", "import", "list", "listissuers", "managecontacts", "manageissuers", "setissuers", "update", ]
-  key_permissions = [ "backup", "create", "decrypt", "delete", "encrypt", "get", "import", "list", "purge", "recover", "restore", "sign", "unwrapKey", "update", "verify", "wrapKey", ]
-  secret_permissions = [ "backup", "delete", "get", "list", "purge", "recover", "restore", "set", ]
-  storage_permissions = [ "get", ]
+  certificate_permissions = [ "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "SetIssuers", "Update", ]
+  key_permissions = [ "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", ]
+  secret_permissions = [ "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set", ]
+  storage_permissions = [ "Get", ]
 }
 
 
