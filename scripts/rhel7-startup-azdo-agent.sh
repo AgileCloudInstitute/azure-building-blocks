@@ -195,3 +195,25 @@ echo "Done with dnf update. "
 echo "--------------------------------------------------"
 echo "About to echo $USR_NM : "
 echo $USR_NM
+
+dnf install python3.8 -y
+dnf remove python3.6 -y
+rm -rf /usr/bin/python3
+mv /usr/bin/python3.8 /usr/bin/python3
+
+python3 --version
+
+dnf install -y python3-setuptools
+dnf install python3-pip -y
+
+python3 -m pip install pyyaml
+python3 -m pip install requests
+python3 -m pip install awscli
+az extension add --name azure-devops
+az extension add --upgrade -n account
+
+dnf clean all
+dnf update python3 -y
+
+python3 --version
+
