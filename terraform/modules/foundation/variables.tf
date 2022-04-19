@@ -12,7 +12,11 @@ variable "clientSecret" { }
 variable "resourceGroupName" { }
 variable "resourceGroupRegion" { }
 variable "cidrSubnetPacker" { }
-  
+
+variable "file_secret_name" { }
+variable "keySourceFile" { }
+variable "vaultName" { }
+
 # Workstation External IP. Override with variable or hardcoded value if necessary.
 data "http" "admin-external-ip" { url = "http://ipv4.icanhazip.com" }
 locals { 

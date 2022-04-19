@@ -16,9 +16,9 @@ module "snet-agents" {
   storageAccountDiagName             = var.storageAccountDiagName
   imageName                          = var.imageName
   cloudInit                          = var.cloudInit
-  vaultName                          = var.vaultName
-  gitUser                            = var.gitUser
-  gitPwd                             = var.gitPwd
+#  vaultName                          = var.vaultName
+#  gitUser                            = var.gitUser
+#  gitPwd                             = var.gitPwd
 
 }
 
@@ -37,12 +37,12 @@ variable "adminPwd" { }
 variable "storageAccountDiagName" { }
 variable "imageName" { }
 variable "cloudInit" { }
-variable "vaultName" { }
-variable "gitUser" { }
-variable "gitPwd" { }
+#variable "vaultName" { }
+#variable "gitUser" { }
+#variable "gitPwd" { }
 
 output "image_id" { value = module.snet-agents.image_id }  
-output "vaultName" { value = module.snet-agents.vaultName }  
+#output "vaultName" { value = module.snet-agents.vaultName }  
 
 terraform {
   backend "azurerm" { }

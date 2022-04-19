@@ -10,11 +10,8 @@ cidrSubnet,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,cidrSu
 imageName,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,imageName,no
 adminUser,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,vmUserName,yes
 adminPwd,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,vmPwd,yes
-vaultName,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,vaultName,no
 cloudInit,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,cloudInit,no
 storageAccountDiagName,foundationOutput,NA,NA,storageAccountDiagName,no
-gitUser,adUserKeys.yaml,NA,name,gitUsername,yes
-gitPwd,adUserKeys.yaml,NA,name,gitPass,yes
 storage_account_name,adUserKeys.yaml,NA,name,storageAccountName,backend
 container_name,adUserKeys.yaml,NA,name,container_name,backend
 key,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,tfBackendStateFileName,backend

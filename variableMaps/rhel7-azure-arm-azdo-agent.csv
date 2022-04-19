@@ -13,3 +13,5 @@ src_image_name,infrastructureConfig.yaml,imageBuilds/images,NA,src_image_name,no
 new_image_name,infrastructureConfig.yaml,imageBuilds/images,NA,instanceName,no
 region,infrastructureConfig.yaml,networkFoundation,instance,resourceGroupRegion,no
 init_script,infrastructureConfig.yaml,imageBuilds/images,NA,init_script,no
+file_secret_name,infrastructureConfig.yaml,imageBuilds/images,NA,file_secret_name,no
+vault_name,infrastructureConfig.yaml,imageBuilds/images,NA,vault_name,no

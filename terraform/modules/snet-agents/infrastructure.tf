@@ -47,6 +47,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "myterraformvmss" {
   admin_username = var.adminUser
   admin_password = var.adminPwd
   disable_password_authentication = false
+#  depends_on = [azurerm_key_vault.infraPipes]
 
   custom_data         = filebase64(var.cloudInit)
 

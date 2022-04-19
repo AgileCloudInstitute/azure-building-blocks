@@ -11,6 +11,9 @@ module "foundation" {
   resourceGroupName             = var.resourceGroupName
   resourceGroupRegion           = var.resourceGroupRegion
   cidrSubnetPacker              = var.cidrSubnetPacker
+  file_secret_name              = var.file_secret_name
+  keySourceFile                 = var.keySourceFile
+  vaultName                     = var.vaultName
 
 }
 
@@ -23,6 +26,9 @@ variable "resourceGroupName" { }
 variable "resourceGroupRegion" { }
 variable "cidrSubnetPacker" { }
 #
+variable "file_secret_name" { }
+variable "keySourceFile" { }
+variable "vaultName" { }
 
 ##Output variables
 output "pipes_resource_group_name" { value = module.foundation.pipes_resource_group_name }

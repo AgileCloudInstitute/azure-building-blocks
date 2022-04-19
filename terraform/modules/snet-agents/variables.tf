@@ -17,9 +17,9 @@ variable "adminPwd" { }
 variable "storageAccountDiagName" { }
 variable "imageName" { }
 variable "cloudInit" { }
-variable "vaultName" { }
-variable "gitUser" {}
-variable "gitPwd" {}
+#variable "vaultName" { }
+#variable "gitUser" {}
+#variable "gitPwd" {}
 
 ## Workstation External IP. Override with variable or hardcoded value if necessary.
 data "http" "admin-external-ip" { url = "https://api.ipify.org" }
@@ -45,4 +45,4 @@ data "azurerm_virtual_network" "vnetTarget" {
 
 output "image_id" { value = data.azurerm_image.search.id }  
 
-output "vaultName" { value = azurerm_key_vault.infraPipes.name }
+#output "vaultName" { value = azurerm_key_vault.infraPipes.name }

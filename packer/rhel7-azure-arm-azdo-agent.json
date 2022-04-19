@@ -11,6 +11,8 @@
     "resource_group": "",
     "new_image_name": "", 
     "region": "",
+    "file_secret_name": "",
+    "vault_name": "",
     "init_script": ""
   },
   "builders": [{
@@ -39,7 +41,10 @@
                          "AZ_PSS={{user `client_secret`}}",
                          "AZ_TNT={{user `tenant_id`}}",
                          "USR_NM={{user `ssh_user`}}",
-                         "AZ_PT={{user `az_pat`}}"],
+                         "AZ_PT={{user `az_pat`}}",
+                         "FILE_SECRET_NAME={{user `file_secret_name`}}",
+                         "VAULT_NAME={{user `vault_name`}}"
+                        ],
     "script": "{{user `init_script`}}",
     "type": "shell"
   }]

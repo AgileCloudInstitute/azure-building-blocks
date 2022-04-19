@@ -216,4 +216,46 @@ dnf clean all
 dnf update python3 -y
 
 python3 --version
+echo "DELIMITTER "
+echo "About to mkdir the acmconfig directory.  "
+mkdir -p /home/azureuser/acmconfig 
 
+#echo "About to retrieve the secrets using cli.  "
+#az login --service-principal -u '$AZ_CLIENT' -p '$AZ_PASS' --tenant '$AZ_TENANT'
+#echo "About to store the secrets in a file.  "
+#echo az keyvault secret show --name "$FILE_SECRET_NAME" --vault-name "$VAULT_NAME" --query "value" | base64 --decode --ignore-garbage >>/home/azureuser/acmconfig/keys.yaml
+
+echo "About to retrieve the secrets uding cli.  "
+az login --service-principal -u $AZ_CLNT -p $AZ_PSS --tenant $AZ_TNT
+#myVar=$(az keyvault secret show --name "$FILE_SECRET_NAME" --vault-name "$VAULT_NAME" --query "value")
+myVar=$(az keyvault secret show --name "acmSecretsFile" --vault-name "agentsFoundationVault" --query "value")
+echo "About to store the secrets in a file.  "
+echo "$myVar" | base64 --decode --ignore-garbage >>/home/azureuser/acmconfig/keys.yaml
+
+#################################################################################
+### The following block installs acm source code for development purposes only. 
+#################################################################################
+echo "About to install ACM source code for development purposes only."
+#Get git variables 
+dos2unix /home/azureuser/acmconfig/keys.yaml  
+arr=($(cat /home/azureuser/acmconfig/keys.yaml | grep "gitPass:"))
+gitPass=${arr[1]%$'\n'}
+arr2=($(cat /home/azureuser/acmconfig/keys.yaml | grep "gitRepo:"))
+gitRepo=${arr2[1]%$'\n'}
+arr3=($(cat /home/azureuser/acmconfig/keys.yaml | grep "gitBranch:"))
+gitBranch=${arr3[1]%$'\n'}
+repoPart2=$(echo "$gitRepo" | awk -F'//' '{print "@"$2}')
+repoWithToken="https://"$gitPass$repoPart2
+#Create directory into which to clone the repo and cd into it
+mkdir /home/azureuser/acm 
+cd /home/azureuser/acm 
+#Clone the repo into the directory
+cloneCmd='git clone --branch '$gitBranch' '$repoWithToken
+$cloneCmd
+
+#Set ACM_SOURCE_KEYS environment variable:
+echo "About to set ACM_SOURCE_KEYS environment variable."
+export ACM_SOURCE_KEYS='/home/azureuser/acmconfig/keys.yaml'
+echo "export ACM_SOURCE_KEYS='/home/azureuser/acmconfig/keys.yaml'" >> /etc/environment
+echo "export ACM_SOURCE_KEYS='/home/azureuser/acmconfig/keys.yaml'" >> /etc/bashrc
+echo "export ACM_SOURCE_KEYS='/home/azureuser/acmconfig/keys.yaml'" >> /etc/profile
