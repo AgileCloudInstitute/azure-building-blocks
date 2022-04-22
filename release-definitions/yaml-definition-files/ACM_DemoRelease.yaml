@@ -1,5 +1,5 @@
 ---
-#Copyright 2021 Green River IT (GreenRiverIT.com) as described in LICENSE.txt distributed with this project on GitHub.
+#Copyright 2022 Green River IT (GreenRiverIT.com) as described in LICENSE.txt distributed with this project on GitHub.
 #Start at https://github.com/AgileCloudInstitute?tab=repositories
 # Defines a release definition
 name: Agile Cloud Manager Demo Release
@@ -13,40 +13,32 @@ environments:
   - name: Dev Environ Create
     deployPhases:
       - name: Create Dev Environment
+        deploymentInput: 
+          justAgentPool: True
+#        - artifactsDownloadInput:
+#          - alias: _SampleCode
         workflowTasks: 
         - name: Setup On
           type: Python
-          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
-          arguments: "setup on $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
-        - name: Admin On
+          scriptPath: "/home/azureuser/acm/agile-cloud-manager/controller/acm.py "
+          arguments: "setup on sourceRepo=https://github.com/AgileCloudInstitute/acm-config-projects2.git repoBranch=main"
+        - name: Platform On
           type: Python
-          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
-          arguments: "admin on $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
-        - name: Foundation On
-          type: Python
-          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
-          arguments: "foundation on $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
-        - name: System On
-          type: Python
-          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
-          arguments: "system on $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+          scriptPath: "/home/azureuser/acm/agile-cloud-manager/controller/acm.py "
+          arguments: "platform on "
   - name: Dev Environ Destroy
     deployPhases:
       - name: Destroy Dev Environment 
+        deploymentInput: 
+          justAgentPool: True
+#        - artifactsDownloadInput:
+#          - alias: _SampleCode
         workflowTasks: 
-        - name: System Off
+        - name: Platform Off
           type: Python
-          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
-          arguments: "system off $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
-        - name: Foundation Off
-          type: Python
-          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
-          arguments: "foundation off $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
-        - name: Admin Off
-          type: Python
-          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
-          arguments: "admin off $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+          scriptPath: "/home/azureuser/acm/agile-cloud-manager/controller/acm.py "
+          arguments: "platform off "
         - name: Setup Off
           type: Python
-          scriptPath: "$(System.DefaultWorkingDirectory)/_ACM_ExampleCode/drop/controller/acm.py "
-          arguments: "setup off $(keySource)  $(configFileDev)  $(-aws-public-access-key)  $(-aws-secret-access-key)  $(storageAccountNameTerraformBackend)  $(demoStorageKey)  $(System.DefaultWorkingDirectory)"
+          scriptPath: "/home/azureuser/acm/agile-cloud-manager/controller/acm.py "
+          arguments: "setup off "

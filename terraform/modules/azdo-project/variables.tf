@@ -21,8 +21,8 @@ output "azuredevops_project_id" { value = azuredevops_project.project.id }
 
  
 variable "repoName" { }  
-variable "buildName" { }
+#variable "buildName" { }
 
 
-output "azuredevops_build_definition_id" { value = azuredevops_build_definition.build.id }
+#output "azuredevops_build_definition_id" { value = azuredevops_build_definition.build.id }
 output "azuredevops_git_repository_name" { value = azuredevops_git_repository.repository.name }

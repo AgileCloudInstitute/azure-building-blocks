@@ -212,6 +212,9 @@ python3 -m pip install awscli
 az extension add --name azure-devops
 az extension add --upgrade -n account
 
+#Set alias so python commands use python3
+echo "alias python=python3" >> /etc/bashrc
+
 dnf clean all
 dnf update python3 -y
 
@@ -228,7 +231,7 @@ mkdir -p /home/azureuser/acmconfig
 echo "About to retrieve the secrets uding cli.  "
 az login --service-principal -u $AZ_CLNT -p $AZ_PSS --tenant $AZ_TNT
 #myVar=$(az keyvault secret show --name "$FILE_SECRET_NAME" --vault-name "$VAULT_NAME" --query "value")
-myVar=$(az keyvault secret show --name "acmSecretsFile" --vault-name "agentsFoundationVault" --query "value")
+myVar=$(az keyvault secret show --name "acmSecretsFile" --vault-name "$VAULT_NAME" --query "value")
 echo "About to store the secrets in a file.  "
 echo "$myVar" | base64 --decode --ignore-garbage >>/home/azureuser/acmconfig/keys.yaml
 

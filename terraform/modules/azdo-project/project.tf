@@ -30,16 +30,15 @@ resource "azuredevops_git_repository" "repository" {
   }
 }
 
-resource "azuredevops_build_definition" "build" {
-  project_id = azuredevops_project.project.id
-  name = var.buildName
-  ci_trigger {
-    use_yaml = true
-  }
-
-  repository {
-    repo_type = "TfsGit"
-    repo_id   = azuredevops_git_repository.repository.id
-    yml_path  = "azure-pipelines.yml"
-  }
-}
+#resource "azuredevops_build_definition" "build" {
+#  project_id = azuredevops_project.project.id
+#  name = var.buildName
+#  ci_trigger {
+#    use_yaml = true
+#  }
+#  repository {
+#    repo_type = "TfsGit"
+#    repo_id   = azuredevops_git_repository.repository.id
+#    yml_path  = "azure-pipelines.yml"
+#  }
+#}
