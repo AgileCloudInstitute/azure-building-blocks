@@ -20,11 +20,11 @@ environments:
         workflowTasks: 
         - name: Setup On
           type: Python
-          scriptPath: "/home/azureuser/acm/agile-cloud-manager/controller/acm.py "
+          scriptPath: "/home/packer/acm/agile-cloud-manager/controller/acm.py "
           arguments: "setup on sourceRepo=https://github.com/AgileCloudInstitute/acm-config-projects2.git repoBranch=main"
         - name: Platform On
           type: Python
-          scriptPath: "/home/azureuser/acm/agile-cloud-manager/controller/acm.py "
+          scriptPath: "/home/packer/acm/agile-cloud-manager/controller/acm.py "
           arguments: "platform on "
   - name: Dev Environ Destroy
     deployPhases:
@@ -36,9 +36,9 @@ environments:
         workflowTasks: 
         - name: Platform Off
           type: Python
-          scriptPath: "/home/azureuser/acm/agile-cloud-manager/controller/acm.py "
+          scriptPath: "/home/packer/acm/agile-cloud-manager/controller/acm.py "
           arguments: "platform off "
         - name: Setup Off
           type: Python
-          scriptPath: "/home/azureuser/acm/agile-cloud-manager/controller/acm.py "
+          scriptPath: "/home/packer/acm/agile-cloud-manager/controller/acm.py "
           arguments: "setup off "
