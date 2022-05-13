@@ -12,7 +12,7 @@ adminUser,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,vmUserN
 adminPwd,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,vmPwd,yes
 cloudInit,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,cloudInit,no
 storageAccountDiagName,foundationOutput,NA,NA,storageAccountDiagName,no
-storage_account_name,adUserKeys.yaml,NA,name,storageAccountName,backend
+storage_account_name,adUserKeys.yaml,NA,name,storage_account_name,backend
 container_name,adUserKeys.yaml,NA,name,container_name,backend
 key,infrastructureConfig.yaml,systems/subnetsWithScaleSet,instance,tfBackendStateFileName,backend
 access_key,adUserKeys.yaml,NA,name,tfBackendStorageAccessKey,backend

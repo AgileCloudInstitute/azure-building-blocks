@@ -256,6 +256,9 @@ cd /home/$USR_NM/acm
 cloneCmd='git clone --branch '$gitBranch' '$repoWithToken
 $cloneCmd
 
+#Create the directory in which acm will store keys
+mkdir /usr/acm
+
 ##Set ACM_SOURCE_KEYS environment variable:
 #echo "About to set ACM_SOURCE_KEYS environment variable."
 #export ACM_SOURCE_KEYS='/home/$USR_NM/acmconfig/keys.yaml'

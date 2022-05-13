@@ -10,7 +10,7 @@ azdoOrgPAT,adUserKeys.yaml,NA,name,azdoOrgPAT,yes
 azdoOrgServiceURL,adUserKeys.yaml,NA,name,azdoOrgServiceURL,yes
 projectName,infrastructureConfig.yaml,systems/projects,instance,instanceName,no
 repoName,infrastructureConfig.yaml,systems/projects,instance,repoName,no
-storage_account_name,adUserKeys.yaml,NA,name,storageAccountName,backend
+storage_account_name,adUserKeys.yaml,NA,name,storage_account_name,backend
 container_name,adUserKeys.yaml,NA,name,container_name,backend
 key,infrastructureConfig.yaml,systems/projects,instance,tfBackendStateFileName,backend
 access_key,adUserKeys.yaml,NA,name,tfBackendStorageAccessKey,backend
