@@ -31,7 +31,7 @@
     "resources": [
         {
             "type": "Microsoft.VirtualMachineImages/imageTemplates",
-            "name": "[parameters('imageTemplateName')]",
+            "name": "[concat(parameters('imageTemplateName'),parameters('currentDateTimeAlphaNumeric'))]",
             "apiVersion": "2020-02-14",
             "location": "[parameters('resourceGroupRegion')]",
             "dependsOn": [],
@@ -94,7 +94,7 @@
                 ],
                 "distribute": [
                     {   "type":"ManagedImage",
-                        "imageId": "[concat('/subscriptions/',parameters('subscriptionId'),'/resourceGroups/',parameters('resourceGroupName'),'/providers/Microsoft.Compute/images/',parameters('imageName'))]",
+                        "imageId": "[concat('/subscriptions/',parameters('subscriptionId'),'/resourceGroups/',parameters('resourceGroupName'),'/providers/Microsoft.Compute/images/',parameters('imageName'),parameters('currentDateTimeAlphaNumeric'))]",
                         "location": "[parameters('resourceGroupRegion')]",
                         "runOutputName": "[parameters('runOutputName')]",
                         "artifactTags": {
