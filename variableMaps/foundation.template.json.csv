@@ -1,3 +1,0 @@
-﻿inputVarName,source,type,identifier,sourceField,secret
-NA,NA,networkFoundation,NA,NA,NA
-resourceGroupName,infrastructureConfig.yaml,networkFoundation,instance,resourceGroupName,no

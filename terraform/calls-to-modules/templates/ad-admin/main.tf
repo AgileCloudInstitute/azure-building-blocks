@@ -11,6 +11,7 @@ module "ad-admin" {
   instanceName         = var.instanceName
   resourceGroupName    = var.resourceGroupName
   resourceGroupRegion  = var.resourceGroupRegion
+  keyVaultName         = var.keyVaultName
 
 }
 
@@ -22,6 +23,7 @@ variable "clientSecret" { }
 variable "instanceName" { }
 variable "resourceGroupName" { }
 variable "resourceGroupRegion" { }
+variable "keyVaultName" { }
 
 output "application_id" { value = module.ad-admin.application_id }
 output "appId" { value = module.ad-admin.appId }

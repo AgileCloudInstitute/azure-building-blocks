@@ -8,6 +8,7 @@ variable "clientSecret" { }
 variable "instanceName" { }
 variable "resourceGroupName" { }
 variable "resourceGroupRegion" { }
+variable "keyVaultName" { }
 
 ## Workstation External IP. Override with variable or hardcoded value if necessary.
 data "http" "admin-external-ip" { url = "https://api.ipify.org" }
@@ -108,7 +109,7 @@ resource "azurerm_role_assignment" "appRegistrationSP_role_assignment_vault" {
 
 ##Now create a key vault as an experiment.  The following will need to be matured later:
 resource "azurerm_key_vault" "adminVault" {
-  name                        = var.instanceName
+  name                        = var.keyVaultName
   location                    = var.resourceGroupRegion
   resource_group_name         = var.resourceGroupName
   enabled_for_disk_encryption = true

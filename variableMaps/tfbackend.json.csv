@@ -1,5 +1,0 @@
-inputVarName,source,type,identifier,sourceField,secret
-NA,NA,networkFoundation,NA,NA,NA
-resourceGroupRegion,infrastructureConfig.yaml,systems/tfBackend,instance,resourceGroupRegion,no
-storageAccountName,infrastructureConfig.yaml,systems/tfBackend,instance,storageAccountName,no
-environmentName,infrastructureConfig.yaml,tags,instance,environmentName,no

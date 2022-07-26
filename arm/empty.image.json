@@ -1,0 +1,109 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "KeyName": { "type": "String" },
+        "InstanceType": { "type": "String" },
+        "clientName": { "type": "String" },
+        "canary": { "type": "String" },
+        "lab": { "type": "String" },
+        "rabid": { "type": "String" },
+        "feline": { "type": "String" },
+        "networkName": { "type": "String" },
+        "environ": { "type": "String" },
+        "vpcCIDR": { "type": "String" },
+        "alternate": { "type": "String" },
+        "firstOutputVar": { "type": "String" },
+        "secondVar": { "type": "String" },
+        "makePath": { "type": "String" },
+        "currentDateTimeAlphaNumeric": { "type": "String" },
+        "addOrgTest": { "type": "String" },
+        "resourceGroupName": { "type": "String" },
+        "resourceGroupRegion": { "type": "String" },
+        "subscriptionId": { "type": "String" },
+        "imgBuilderId": { "type": "string" },
+        "imageTemplateName": { "type": "String" },
+        "imageName": { "type": "String" },
+        "runOutputName": { "type": "String" }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.VirtualMachineImages/imageTemplates",
+            "name": "[parameters('imageTemplateName')]",
+            "apiVersion": "2020-02-14",
+            "location": "[parameters('resourceGroupRegion')]",
+            "dependsOn": [],
+            "tags": {
+                "imagebuilderTemplate": "ubuntu1804",
+                "userIdentity": "enabled"
+            },
+            "identity": {
+                "type": "UserAssigned",
+                    "userAssignedIdentities": {
+                        "[parameters('imgBuilderId')]": {}
+                }
+            },
+            "properties": {
+                "buildTimeoutInMinutes" : 80,
+                "vmProfile": {
+                    "vmSize": "Standard_D1_v2",
+                    "osDiskSizeGB": 30
+                },
+                "source": {
+                    "type": "PlatformImage",
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"                    
+                },
+                "customize": [
+                    {
+                        "type": "Shell",
+                        "name": "RunScriptFromSource",
+                        "scriptUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/quickquickstarts/customizeScript.sh"
+                    },
+                    {
+                        "type": "Shell",
+                        "name": "CheckSumCompareShellScript",
+                        "scriptUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/quickquickstarts/customizeScript2.sh",
+                        "sha256Checksum": "ade4c5214c3c675e92c66e2d067a870c5b81b9844b3de3cc72c49ff36425fc93"
+                    },                    
+                    {
+                        "type": "File",
+                        "name": "downloadBuildArtifacts",
+                        "sourceUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/quickquickstarts/exampleArtifacts/buildArtifacts/index.html",
+                        "destination":"/tmp/index.html"
+                    },
+                    {
+                        "type": "Shell",
+                        "name": "setupBuildPath",
+                        "inline": [
+                            "sudo mkdir /buildArtifacts",
+                            "sudo cp /tmp/index.html /buildArtifacts/index.html"
+                        ]
+                    },
+                    {
+                        "type": "Shell",
+                        "name": "InstallUpgrades",
+                        "inline": [
+                            "sudo apt install unattended-upgrades"
+                        ]
+                    }
+                ],
+                "distribute": [
+                    {   "type":"ManagedImage",
+                        "imageId": "[concat('/subscriptions/',parameters('subscriptionId'),'/resourceGroups/',parameters('resourceGroupName'),'/providers/Microsoft.Compute/images/',parameters('imageName'))]",
+                        "location": "[parameters('resourceGroupRegion')]",
+                        "runOutputName": "[parameters('runOutputName')]",
+                        "artifactTags": {
+                            "source": "azVmImageBuilder",
+                            "baseosimg": "ubuntu1804"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {}
+}

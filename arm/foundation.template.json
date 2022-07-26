@@ -12,6 +12,6 @@
       "foundationResourceGroupName": {
         "type": "string",
         "value": "[resourceGroup().name]"
-      }
+      } 
     }
   }

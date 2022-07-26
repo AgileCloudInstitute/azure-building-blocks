@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceGroupName": { "type": "String" },
+        "vpcCIDR": { "type": "String" },
+        "secondString": { "type": "String" },
+        "clientName": { "type": "String" },
+        "subName": { "type": "String" },
+        "labrador": { "type": "String" },
+        "tName": { "type": "String" },
+        "networkName": { "type": "String" },
+        "owner": { "type": "String" },
+        "makePath": { "type": "String" },
+        "now": { "type": "String" },
+        "addOrgTest": { "type": "String" }
+    },
+    "variables": {},
+    "resources": [],
+    "outputs": {
+        "firstOutputVar": {
+            "type": "string",
+            "value": "one-value"
+        },
+        "secondOutputVar": {
+            "type": "string",
+            "value": "two-value"
+        }
+    }
+}
