@@ -179,6 +179,16 @@ sudo ./svc.sh status
 echo "About to e o f "
 EOF
 
+##Install the agent as a systemd service using the following 8 commands, which depend on the environment variables you just set in the line above this line.  
+echo "About to switch to $USR_NM, then install awscli.  "
+su - $USR_NM << EOF
+echo "User from whoami is: "
+whoami
+echo "About to install awscli "
+pip3 install awscli --upgrade --user
+echo "About to e o f "
+EOF
+
 pip3 install requests
 pip3 install pyyaml
 pip3 install IPy
@@ -258,6 +268,15 @@ $cloneCmd
 
 #Create the directory in which acm will store keys
 mkdir /usr/acm
+
+mkdir /home/$USR_NM/acmconfig2/
+mkdir /home/$USR_NM/acmconfig2/adminAccounts/
+
+#chown to new user so that these are not owned by root
+chown -R $USR_NM:$USR_NM /home/$USR_NM/acmconfig
+chown -R $USR_NM:$USR_NM /home/$USR_NM/acm
+chown -R $USR_NM:$USR_NM /home/$USR_NM/acmconfig2/
+chown -R $USR_NM:$USR_NM /home/$USR_NM/acmconfig2/adminAccounts/
 
 ##Set ACM_SOURCE_KEYS environment variable:
 #echo "About to set ACM_SOURCE_KEYS environment variable."
