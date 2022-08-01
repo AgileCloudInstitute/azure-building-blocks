@@ -14,7 +14,7 @@
     "file_secret_name": "",
     "vault_name": "",
     "init_script": ""
-  },
+  }, 
   "builders": [{
     "type": "azure-arm",
     "client_id": "{{user `client_id`}}",

@@ -56,3 +56,11 @@ resource "azurerm_key_vault_secret" "keysFile" {
   tags = { environment = "Testing" }
   depends_on = [azurerm_key_vault_access_policy.userCreatedSP, azurerm_key_vault_access_policy.userCreatedSP2]
 }
+
+resource "azurerm_key_vault_secret" "keysFileTwo" {
+  name         = var.file_secret_name_two
+  value        = filebase64(var.keySourceFileTwo) 
+  key_vault_id = azurerm_key_vault.agentsFoundation.id
+  tags = { environment = "Testing" }
+  depends_on = [azurerm_key_vault_access_policy.userCreatedSP, azurerm_key_vault_access_policy.userCreatedSP2]
+}

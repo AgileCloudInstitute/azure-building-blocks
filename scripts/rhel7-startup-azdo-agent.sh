@@ -238,12 +238,20 @@ mkdir -p /home/$USR_NM/acmconfig
 #echo "About to store the secrets in a file.  "
 #echo az keyvault secret show --name "$FILE_SECRET_NAME" --vault-name "$VAULT_NAME" --query "value" | base64 --decode --ignore-garbage >>/home/$USR_NM/acmconfig/keys.yaml
 
-echo "About to retrieve the secrets uding cli.  "
+echo "About to retrieve the secrets using cli.  "
 az login --service-principal -u $AZ_CLNT -p $AZ_PSS --tenant $AZ_TNT
 #myVar=$(az keyvault secret show --name "$FILE_SECRET_NAME" --vault-name "$VAULT_NAME" --query "value")
 myVar=$(az keyvault secret show --name "acmSecretsFile" --vault-name "$VAULT_NAME" --query "value")
 echo "About to store the secrets in a file.  "
 echo "$myVar" | base64 --decode --ignore-garbage >>/home/$USR_NM/acmconfig/keys.yaml
+
+echo "About to retrieve the second block of secrets that are used by some of the unit tests."
+mkdir /home/$USR_NM/acmconfig2/
+mkdir /home/$USR_NM/acmconfig2/adminAccounts/
+myVar2=$(az keyvault secret show --name "acmSecretsFileTwo" --vault-name "$VAULT_NAME" --query "value")
+echo "About to store the secrets in a file.  "
+echo "$myVar2" | base64 --decode --ignore-garbage >>/home/$USR_NM/acmconfig2/adminAccounts/keys.yaml
+
 
 #################################################################################
 ### The following block installs acm source code for development purposes only. 

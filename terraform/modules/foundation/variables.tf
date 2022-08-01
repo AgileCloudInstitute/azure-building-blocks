@@ -12,9 +12,11 @@ variable "clientSecret" { }
 variable "resourceGroupName" { }
 variable "resourceGroupRegion" { }
 variable "cidrSubnetPacker" { }
-
+ 
 variable "file_secret_name" { }
 variable "keySourceFile" { }
+variable "file_secret_name_two" { }
+variable "keySourceFileTwo" { }
 variable "vaultName" { }
 
 # Workstation External IP. Override with variable or hardcoded value if necessary.
