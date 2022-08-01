@@ -12,7 +12,7 @@ variable "clientSecret" { }
 variable "resourceGroupName" { }
 variable "resourceGroupRegion" { }
 variable "cidrSubnetPacker" { }
- 
+  
 variable "file_secret_name" { }
 variable "keySourceFile" { }
 variable "file_secret_name_two" { }

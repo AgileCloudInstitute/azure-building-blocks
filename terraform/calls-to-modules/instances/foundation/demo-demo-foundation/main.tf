@@ -2,7 +2,7 @@
 #Start at https://github.com/AgileCloudInstitute?tab=repositories
 
 module "foundation" {
-  source = "..\\..\\..\\modules\\foundation"
+  source = "..\\..\\..\\..\\modules\\foundation"
 
   subscriptionId                = var.subscriptionId
   tenantId                      = var.tenantId
@@ -13,8 +13,6 @@ module "foundation" {
   cidrSubnetPacker              = var.cidrSubnetPacker
   file_secret_name              = var.file_secret_name
   keySourceFile                 = var.keySourceFile
-  file_secret_name_two          = var.file_secret_name_two
-  keySourceFileTwo              = var.keySourceFileTwo
   vaultName                     = var.vaultName
 
 }
@@ -30,8 +28,6 @@ variable "cidrSubnetPacker" { }
 #
 variable "file_secret_name" { }
 variable "keySourceFile" { }
-variable "file_secret_name_two" { }
-variable "keySourceFileTwo" { }
 variable "vaultName" { }
 
 ##Output variables
