@@ -17,7 +17,7 @@
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2021-11-01-preview",
             "name": "[parameters('vaults_pipelineAgents_myOrg_name')]",
-            "location": "westus",
+            "location": "eastus",
             "tags": {
                 "environment": "Testing"
             },
@@ -156,7 +156,7 @@
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2021-11-01-preview",
             "name": "[parameters('vaults_projectManagement_myOrg_name')]",
-            "location": "westus",
+            "location": "eastus",
             "tags": {
                 "environment": "Testing"
             },
@@ -295,7 +295,7 @@
             "type": "Microsoft.KeyVault/vaults/secrets",
             "apiVersion": "2021-11-01-preview",
             "name": "[concat(parameters('vaults_pipelineAgents_myOrg_name'), '/subscription-id')]",
-            "location": "westus",
+            "location": "eastus",
             "dependsOn": [
                 "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_pipelineAgents_myOrg_name'))]"
             ],
@@ -314,7 +314,7 @@
             "type": "Microsoft.KeyVault/vaults/secrets",
             "apiVersion": "2021-11-01-preview",
             "name": "[concat(parameters('vaults_projectManagement_myOrg_name'), '/subscription-id')]",
-            "location": "westus",
+            "location": "eastus",
             "dependsOn": [
                 "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_projectManagement_myOrg_name'))]"
             ],

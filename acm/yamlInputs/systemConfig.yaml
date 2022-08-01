@@ -14,7 +14,7 @@ networkFoundation:
   templateName: azure-building-blocks/terraform/foundationAdmin
   tool: terraform
   resourceGroupName: admin
-  resourceGroupRegion: westus
+  resourceGroupRegion: eastus
   tfBackendStorageContainerName: networkfoundation
   tfBackendStateFileName: adminaccounts.networkfoundation.tfstate
 systems:

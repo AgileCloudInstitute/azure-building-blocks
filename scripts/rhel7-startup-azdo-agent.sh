@@ -277,8 +277,8 @@ $cloneCmd
 #Create the directory in which acm will store keys
 mkdir /usr/acm
 
-mkdir /home/$USR_NM/acmconfig2/
-mkdir /home/$USR_NM/acmconfig2/adminAccounts/
+#mkdir /home/$USR_NM/acmconfig2/
+#mkdir /home/$USR_NM/acmconfig2/adminAccounts/
 
 #chown to new user so that these are not owned by root
 chown -R $USR_NM:$USR_NM /home/$USR_NM/acmconfig

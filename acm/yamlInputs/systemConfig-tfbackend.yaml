@@ -14,7 +14,7 @@ networkFoundation:
   templateName: azure-building-blocks/terraform/found-tfbknd-az
   tool: terraform
   resourceGroupName: terraform-backend
-  resourceGroupRegion: westus
+  resourceGroupRegion: eastus
 systems:
   tfBackend:
     - instanceName: adminAccounts
