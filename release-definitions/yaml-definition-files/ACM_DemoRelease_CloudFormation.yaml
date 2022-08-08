@@ -2,13 +2,12 @@
 #Copyright 2022 Green River IT (GreenRiverIT.com) as described in LICENSE.txt distributed with this project on GitHub.
 #Start at https://github.com/AgileCloudInstitute?tab=repositories
 # Defines a release definition
-name: Agile Cloud Manager Demo Release
-description: A Release Definition for creating infrastructure with the Agile Cloud Manager
+name: Agile Cloud Manager Release -- CloudFormation
+description: A Release Definition for creating infrastructure with the Agile Cloud Manager using CloudFormation templates
 variables:
   - keySource: keyVault
     configFileDev: demoConfigDev.yaml
     configFileTest: demoConfigTest.yaml
-    storageAccountNameTerraformBackend: placeholder
 environments:
   - name: Dev Environ Create
     deployPhases:
@@ -19,7 +18,7 @@ environments:
           - name: Setup On
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/controller/acm.py "
-            arguments: "setup on sourceRepo=https://github.com/AgileCloudInstitute/acm-config-projects2.git repoBranch=main"
+            arguments: "setup on sourceRepo=https://github.com/AgileCloudInstitute/acm-config-projects-cf.git repoBranch=main"
           - name: Platform On
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/controller/acm.py "
@@ -37,7 +36,7 @@ environments:
           - name: Setup On
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/controller/acm.py "
-            arguments: "setup on sourceRepo=https://github.com/AgileCloudInstitute/acm-config-projects2.git repoBranch=main"
+            arguments: "setup on sourceRepo=https://github.com/AgileCloudInstitute/acm-config-projects-cf.git repoBranch=main"
           - name: Platform Off
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/controller/acm.py "
