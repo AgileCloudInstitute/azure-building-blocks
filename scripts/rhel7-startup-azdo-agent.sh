@@ -166,6 +166,8 @@ echo "About to run the config sh script.  "
 ./config.sh --unattended --url $AZ_SERVER --auth pat --token $AZ_PAT --pool default --agent rhelBox --replace --acceptTeeEula
 echo "About to run the install dependencies sh script.  "
 sudo ./bin/installdependencies.sh
+#For debugging, the following line prints out the PAT.  REMOVE THE NEXT LINE AFTER DEVELOPMENT TO PROTECT SECRETS.
+echo 'AZ Personal Access Token is: ' $AZ_PAT
 #Wait for the svc.sh file to be created before running it in subsequent steps.
 echo "About to begin sleeping until the svc sh script has been found.  "
 while [ ! -f /home/$USR_NM/agent-download/svc.sh ]; do sleep 1; done
