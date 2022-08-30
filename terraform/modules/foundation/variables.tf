@@ -24,7 +24,7 @@ data "http" "admin-external-ip" { url = "http://ipv4.icanhazip.com" }
 locals { 
   admin-external-cidr = "${chomp(data.http.admin-external-ip.body)}/32"
   admin-external-ip = chomp(data.http.admin-external-ip.body) 
-}
+} 
 
 ##Define the output variables
 output "pipes_resource_group_name" { value = azurerm_resource_group.pipelines.name }
