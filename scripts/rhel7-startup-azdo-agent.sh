@@ -12,9 +12,7 @@
 echo "About to echo who am i: "
 whoami
 
-echo "About to echo $USR_NM : "
 export USR_NM=$USR_NM
-echo $USR_NM
 
 echo "About to set environment_variables .  "
 ## NOTE:  OBSCURING PASSWORDS FROM LOGS BY ADDING:  
@@ -63,9 +61,6 @@ cat << EOF > /etc/sudoers.d/waagent
 $USR_NM ALL=(ALL) NOPASSWD: ALL
 EOF
 
-#echo "About to cat /etc/sudoers.d/waagent "
-#cat /etc/sudoers.d/waagent
-
 yum clean all 
 
 #First update the certificate so that dnf update commands below can work properly.  If you do not update certificates with this line, the script can break.  
@@ -74,8 +69,6 @@ dnf update -y --disablerepo='*' --enablerepo='*microsoft*'
 
 echo "--------------------------------------------------"
 echo "About to dnf update"
-#Replacing the following line and replacing the following line with the line after it because the following line was breaking the build.  Later, make a work item to avoid the need for adding --skip-broken --allowerasing --nobest 
-#dnf update -y
 dnf update -y --skip-broken --allowerasing --nobest
 echo "Done with dnf update. "
 echo "--------------------------------------------------"
@@ -95,11 +88,6 @@ unzip terraform_0.12.24_linux_amd64.zip
 #Move the terraform binary into a folder that is listed as part of the PATH variable.  
 mv terraform /usr/local/bin/
 cd /home/$USR_NM
-
-#-->echo "About to install python3"
-#-->dnf install -y python3
-#-->dnf install -y python3-setuptools
-#-->dnf install python3-pip -y
 
 #Have to install epel using rpm because dnf could not see epel-release
 echo "About to install ansible, epel, and telnet"
@@ -125,8 +113,6 @@ cd /home/$USR_NM/powershell-download
 dnf install -y wget
 wget https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/powershell-7.1.3-1.rhel.7.x86_64.rpm
 dnf install -y powershell-7.1.3-1.rhel.7.x86_64.rpm
-#-->wget https://github.com/PowerShell/PowerShell/releases/download/v7.0.1/powershell-7.0.1-1.rhel.7.x86_64.rpm
-#-->dnf install -y powershell-7.0.1-1.rhel.7.x86_64.rpm
 #You should now be able to open powershell by typing "pwsh" in the command line
 
 #-->echo "About to add extra libraries:"
@@ -142,8 +128,6 @@ mkdir agent-download
 cd agent-download
 wget https://vstsagentpackage.azureedge.net/agent/2.187.2/vsts-agent-linux-x64-2.187.2.tar.gz
 tar xvf vsts-agent-linux-x64-2.187.2.tar.gz
-#-->wget https://vstsagentpackage.azureedge.net/agent/2.171.1/vsts-agent-linux-x64-2.171.1.tar.gz
-#-->tar xvf vsts-agent-linux-x64-2.171.1.tar.gz
 
 chown -R $USR_NM:$USR_NM /home/$USR_NM/terraform-download
 chown -R $USR_NM:$USR_NM /home/$USR_NM/agent-download
@@ -158,16 +142,22 @@ su - $USR_NM << EOF
 echo "User from whoami is: "
 whoami
 echo "About to login to az.  "
-az login --service-principal -u '$AZ_CLIENT' -p '$AZ_PASS' --tenant '$AZ_TENANT'
+#This next line works, but it prints the password to the console, so we comment it out to try other approach below it.
+#az login --service-principal -u '$AZ_CLIENT' -p '$AZ_PASS' --tenant '$AZ_TENANT'
+#This next line is intended tp replace the preceding line more securely and is modified from: https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli 
+read -sp "Azure password: " '$AZ_PASS' && echo && az login --service-principal -u '$AZ_CLIENT' -p '$AZ_PASS' --tenant '$AZ_TENANT'
 echo "About to cd into agent-download directory.  "
 cd /home/$USR_NM/agent-download/
 echo "The server is: $AZ_SERVER "
 echo "About to run the config sh script.  "
-./config.sh --unattended --url $AZ_SERVER --auth pat --token $AZ_PAT --pool default --agent rhelBox --replace --acceptTeeEula
+#This next line works, but we are commenting it out to try another approach below it.
+#./config.sh --unattended --url $AZ_SERVER --auth pat --token $AZ_PAT --pool default --agent rhelBox --replace --acceptTeeEula
+#These next 3 lines replace the preceding line in an attempt to prevent printing the $AZ_PAT into the logs.  This is modified from: https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops 
+export VSTS_AGENT_INPUT_TOKEN=$AZ_PAT
+export VSTS_AGENT_INPUT_URL=$AZ_SERVER
+./config.sh --unattended --auth pat --pool default --agent rhelBox --replace --acceptTeeEula
 echo "About to run the install dependencies sh script.  "
 sudo ./bin/installdependencies.sh
-#For debugging, the following line prints out the PAT.  REMOVE THE NEXT LINE AFTER DEVELOPMENT TO PROTECT SECRETS.
-echo 'AZ Personal Access Token is: ' $AZ_PAT
 #Wait for the svc.sh file to be created before running it in subsequent steps.
 echo "About to begin sleeping until the svc sh script has been found.  "
 while [ ! -f /home/$USR_NM/agent-download/svc.sh ]; do sleep 1; done
@@ -197,8 +187,6 @@ pip3 install IPy
 
 #Cause the ansible configuration to be owned by the agent user so that pipelines can change things like hosts file, etc.  
 chown -R $USR_NM:$USR_NM /etc/ansible
-
-echo "All done with cloud-init.  "
 
 echo "--------------------------------------------------"
 echo "About to dnf update"
@@ -235,14 +223,8 @@ echo "DELIMITTER "
 echo "About to mkdir the acmconfig directory.  "
 mkdir -p /home/$USR_NM/acmconfig 
 
-#echo "About to retrieve the secrets using cli.  "
-#az login --service-principal -u '$AZ_CLIENT' -p '$AZ_PASS' --tenant '$AZ_TENANT'
-#echo "About to store the secrets in a file.  "
-#echo az keyvault secret show --name "$FILE_SECRET_NAME" --vault-name "$VAULT_NAME" --query "value" | base64 --decode --ignore-garbage >>/home/$USR_NM/acmconfig/keys.yaml
-
 echo "About to retrieve the secrets using cli.  "
 az login --service-principal -u $AZ_CLNT -p $AZ_PSS --tenant $AZ_TNT
-#myVar=$(az keyvault secret show --name "$FILE_SECRET_NAME" --vault-name "$VAULT_NAME" --query "value")
 myVar=$(az keyvault secret show --name "acmSecretsFile" --vault-name "$VAULT_NAME" --query "value")
 echo "About to store the secrets in a file.  "
 echo "$myVar" | base64 --decode --ignore-garbage >>/home/$USR_NM/acmconfig/keys.yaml
@@ -253,7 +235,6 @@ mkdir /home/$USR_NM/acmconfig2/adminAccounts/
 myVar2=$(az keyvault secret show --name "acmSecretsFileTwo" --vault-name "$VAULT_NAME" --query "value")
 echo "About to store the secrets in a file.  "
 echo "$myVar2" | base64 --decode --ignore-garbage >>/home/$USR_NM/acmconfig2/adminAccounts/keys.yaml
-
 
 #################################################################################
 ### The following block installs acm source code for development purposes only. 
@@ -283,10 +264,6 @@ mkdir /usr/acm
 mkdir /usr/acm/keys/
 mkdir /usr/acm/keys/adminAccounts
 cp /home/packer/acmconfig2/adminAccounts/keys.yaml /usr/acm/keys/adminAccounts/keys.yaml
- 
-
-#mkdir /home/$USR_NM/acmconfig2/
-#mkdir /home/$USR_NM/acmconfig2/adminAccounts/
 
 #chown to new user so that these are not owned by root
 chown -R $USR_NM:$USR_NM /home/$USR_NM/acmconfig
@@ -294,9 +271,4 @@ chown -R $USR_NM:$USR_NM /home/$USR_NM/acm
 chown -R $USR_NM:$USR_NM /home/$USR_NM/acmconfig2/
 chown -R $USR_NM:$USR_NM /home/$USR_NM/acmconfig2/adminAccounts/
 
-##Set ACM_SOURCE_KEYS environment variable:
-#echo "About to set ACM_SOURCE_KEYS environment variable."
-#export ACM_SOURCE_KEYS='/home/$USR_NM/acmconfig/keys.yaml'
-#echo "export ACM_SOURCE_KEYS='/home/$USR_NM/acmconfig/keys.yaml'" >> /etc/environment
-#echo "export ACM_SOURCE_KEYS='/home/$USR_NM/acmconfig/keys.yaml'" >> /etc/bashrc
-#echo "export ACM_SOURCE_KEYS='/home/$USR_NM/acmconfig/keys.yaml'" >> /etc/profile
+echo "All done with cloud-init.  "
