@@ -19,10 +19,10 @@ environments:
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/app/acm.py "
             arguments: "setup on sourceRepo=https://github.com/AgileCloudInstitute/acm-config-custom.git repoBranch=main"
-          - name: Platform On
+          - name: appliance On
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/app/acm.py "
-            arguments: "platform on "
+            arguments: "appliance on "
           - name: Setup Off
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/app/acm.py "
@@ -37,10 +37,10 @@ environments:
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/app/acm.py "
             arguments: "setup on sourceRepo=https://github.com/AgileCloudInstitute/acm-config-custom.git repoBranch=main"
-          - name: Platform Off
+          - name: appliance Off
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/app/acm.py "
-            arguments: "platform off "
+            arguments: "appliance off "
           - name: Setup Off
             type: Python
             scriptPath: "/home/packer/acm/agile-cloud-manager/app/acm.py "
