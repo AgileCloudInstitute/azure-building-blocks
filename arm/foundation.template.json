@@ -5,7 +5,33 @@
       "resourceGroupName": { 
         "type": "String", 
         "defaultValue" : "myResourceGroupDev"
+      },
+      "anotherVar": { 
+        "type": "String", 
+        "defaultValue" : "defaultValueForAnotherVar"
+      },
+      "thirdVar": { 
+        "type": "String", 
+        "defaultValue" : "defaultValueForThirdVar"
+      },
+      "foundInst": { 
+        "type": "String", 
+        "defaultValue" : "defaultValueForFoundInst"
+      },
+
+      "networkName": { 
+        "type": "String"
+      },
+      "systName": { 
+        "type": "String"
+      },
+      "environmentName": { 
+        "type": "String"
+      },
+      "ownrNm": { 
+        "type": "String"
       }
+
     },
     "resources": [],
     "outputs": {
