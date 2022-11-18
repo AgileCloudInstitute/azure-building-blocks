@@ -32,7 +32,7 @@
     "image_version": "latest",
     "ssh_pty": "true",
     "location": "{{user `region`}}",
-    "vm_size": "Standard_DS2_v2"
+    "vm_size": "Standard_DS11_v2"
   }],
   "provisioners": [{
     "execute_command": "echo {{user `az_pat`}} | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
