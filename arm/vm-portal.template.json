@@ -41,6 +41,33 @@
       },
       "foundationResourceGroupName": {
         "type": "String"
+      },
+      "anotherVar": {
+        "type": "String"
+      },
+      "yetAnotherVar": {
+        "type": "String"
+      },
+      "foundInstanceNameVar": {
+        "type": "String"
+      },
+      "deploymentName": {
+        "type": "String"
+      },
+      "myInstName": {
+        "type": "String"
+      },
+      "networkName": { 
+        "type": "String"
+      },
+      "systName": { 
+        "type": "String"
+      },
+      "environmentName": { 
+        "type": "String"
+      },
+      "ownrNm": { 
+        "type": "String"
       }
     },
     "variables": {

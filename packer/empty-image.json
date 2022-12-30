@@ -1,0 +1,57 @@
+{
+  "variables": {
+    "client_id": "",
+    "client_secret": "",
+    "subscription_id": "",
+    "tenant_id": "",
+    "ssh_user": "",
+    "ssh_pass": "",
+    "resource_group": "",
+    "new_image_name": "", 
+    "region": "",
+    "file_secret_name": "",
+    "vault_name": "",
+    "init_script": "",
+
+    "KeyName": "", 
+    "clientName": "",
+    "canary": "",
+    "lab": "",
+    "rabid": "",
+    "feline": "",
+    "networkName": "",
+    "environ": "",
+    "vpcCIDR": "",
+    "alternate": "",
+    "first_output_var": "",
+    "secondVar": "",
+    "makePath": "",
+    "currentDateTimeAlphaNumeric": "",
+    "addOrgTest": ""
+  }, 
+  "builders": [{
+    "type": "azure-arm",
+    "client_id": "{{user `client_id`}}",
+    "client_secret": "{{user `client_secret`}}",
+    "subscription_id": "{{user `subscription_id`}}",
+    "tenant_id": "{{user `tenant_id`}}",
+    "managed_image_resource_group_name": "{{user `resource_group`}}",
+    "managed_image_name": "{{user `new_image_name`}}{{timestamp}}",
+    "ssh_username": "{{user `ssh_user`}}",
+    "ssh_password": "{{user `ssh_pass`}}",
+    "os_type": "Linux",
+    "image_publisher": "RedHat", 
+    "image_offer": "RHEL",
+    "image_sku": "8",
+    "image_version": "latest",
+    "ssh_pty": "true",
+    "location": "{{user `region`}}",
+    "vm_size": "Standard_DS11_v2"
+  }], 
+  "provisioners": [{
+    "script": "{{user `init_script`}}",
+    "type": "shell",
+    "pause_before": "10s",
+    "timeout": "10s"
+  }]
+}
