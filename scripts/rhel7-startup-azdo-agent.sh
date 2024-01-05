@@ -260,7 +260,7 @@ $cloneCmd
 #Create the directory in which acm will store keys
 mkdir /usr/acm
 
-#Next 3 lines are a test 2 August 2022
+#Next 3 lines are a test 2 August 2024
 mkdir /usr/acm/keys/
 mkdir /usr/acm/keys/adminAccounts
 cp /home/packer/acmconfig2/adminAccounts/keys.yaml /usr/acm/keys/adminAccounts/keys.yaml

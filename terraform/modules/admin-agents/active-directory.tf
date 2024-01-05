@@ -1,4 +1,4 @@
-#Copyright 2022 Green River IT (GreenRiverIT.com) as described in LICENSE.txt distributed with this project on GitHub.
+#Copyright 2024 Agile Cloud Institute, Inc.  (AgileCloudInstitute.io) as described in LICENSE.txt distributed with this project on GitHub.
 #Start at https://github.com/AgileCloudInstitute?tab=repositories
 
 variable "subscriptionId" { }
@@ -17,7 +17,7 @@ locals { admin-external-cidr = "${chomp(data.http.admin-external-ip.body)}/32" }
 
 output "application_id" { value = azuread_application.appRegistration.application_id }
 output "appId" { value = azuread_service_principal.appRegistrationSP.application_id }
-#.The following 3 are a test on 4/18/2022 to be deleted later.
+#.The following 3 are a test on 4/18/2024 to be deleted later.
 #output "spPwd" { value = azuread_service_principal_password.appRegistrationSP_pwd.value }
 #output "application_objId" { value = azuread_application.appRegistration.object_id }
 #output "spObjectId" { value = azuread_service_principal.appRegistrationSP.object_id }

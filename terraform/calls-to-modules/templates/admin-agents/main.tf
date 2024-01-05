@@ -1,4 +1,4 @@
-#Copyright 2021 Green River IT (GreenRiverIT.com) as described in LICENSE.txt distributed with this project on GitHub.
+#Copyright 2024 Agile Cloud Institute, Inc.  (AgileCloudInstitute.io) as described in LICENSE.txt distributed with this project on GitHub.
 #Start at https://github.com/AgileCloudInstitute?tab=repositories
 
 module "ad-admin" {
@@ -29,7 +29,7 @@ variable "instanceName" { }
 
 output "application_id" { value = module.ad-admin.application_id }
 output "appId" { value = module.ad-admin.appId }
-#.The following 3 are a test on 4/18/2022 to be deleted later.
+#.The following 3 are a test on 4/18/2024 to be deleted later.
 #output "spPwd" { value = module.ad-admin.spPwd }
 #output "application_objId" { value = module.ad-admin.application_objId }
 #output "spObjectId" { value = module.ad-admin.spObjectId }
