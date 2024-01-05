@@ -1,0 +1,97 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for your deployment."
+      }
+    },
+    "name": { 
+      "type": "string",
+      "defaultValue": "tlax",
+      "metadata": {
+        "description": "This is a Three Letter Acronym for your company name. 'CON' for Contoso for example."
+      }
+    },
+    "deploymentType": {
+      "type": "string",
+      "defaultValue": "poc",
+      "allowedValues": [
+        "devtest",
+        "poc",
+        "prod",
+        "shared"
+      ],
+      "metadata": {
+        "description": "Specify deployment type: DevTest, POC, Prod, Shared. This will also be used in the naming convention."
+      }
+    },
+    "purviewName": {
+      "type": "string",
+      "defaultValue": "[format('azurePurview{0}', uniqueString(resourceGroup().id))]",
+      "metadata": {
+        "description": "Specify a name for the Azure Purview account."
+      }
+    }
+  },
+  "variables": {
+    "dlsName": "[toLower(parameters('name'))]",
+    "dlsFsName": "[toLower(concat(variables('dlsName'),'fs1'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2019-06-01",
+      "name": "[variables('dlsName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "accessTier": "Hot",
+        "supportsHttpsTrafficOnly": true,
+        "isHnsEnabled": true
+      },
+      "resources": [
+        {
+          "name": "[concat('default/', variables('dlsFsName'))]",
+          "type": "blobServices/containers",
+          "apiVersion": "2019-06-01",
+          "dependsOn": [
+            "[variables('dlsName')]"
+          ],
+          "properties": {
+            "publicAccess": "None"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Microsoft.Purview/accounts",
+      "apiVersion": "2021-12-01",
+      "name": "[parameters('purviewName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard",
+        "capacity": 1
+      },
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "publicNetworkAccess": "Enabled",
+        "managedResourceGroupName": "[format('managed-rg-{0}', parameters('purviewName'))]"
+      }
+    }
+  ],
+  "outputs": {
+    "storageAccountName": {
+      "type": "string",
+      "value": "[parameters('name')]"
+    }
+  }
+}
